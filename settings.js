@@ -1,3 +1,6 @@
 var protectedPath = ['/expense', '/income', '/budget']
 
-module.exports = { protectedPath }
+var defaultStart = 0
+var defaultLimit = 5
+
+module.exports = { protectedPath, defaultLimit, defaultStart }

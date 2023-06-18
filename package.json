@@ -1,0 +1,18 @@
+{
+  "name": "expense_app_be",
+  "version": "1.0.0",
+  "description": "BE for expense",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Harsh Singh",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.1.1",
+    "node-fetch": "^3.3.1",
+    "nodemon": "^2.0.22",
+    "package.json": "^2.0.1"
+  }
+}

@@ -7,6 +7,7 @@ const Expense = require('./model/expense')
 const Category = require('./model/category')
 const Income = require('./model/income')
 const Budget = require('./model/budget')
+var cors = require('cors')
 
 //utils import
 const { test } = require('./utils')
@@ -14,6 +15,13 @@ const verify = require('./auth')
 
 const app = express();
 
+const allowCrossDomain = (req, res, next) => {
+    res.header(`Access-Control-Allow-Headers`, `Authorization`);
+    next();
+};
+
+app.use(cors())
+app.use(allowCrossDomain)
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
@@ -64,3 +72,4 @@ app.listen(PORT, (error) => {
         console.log("Error occurred, server can't start", error);
 }
 );
+

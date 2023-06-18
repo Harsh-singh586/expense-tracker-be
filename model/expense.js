@@ -15,10 +15,16 @@ const expenseSchema = new mongoose.Schema({
     month: {
         type: Number,
     },
+    year: {
+        type: Number,
+    },
     amount: {
         type: Number,
     },
     createdOn: {
+        type: Date
+    },
+    createdTime: {
         type: Date
     },
     createdBy: {

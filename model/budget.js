@@ -1,18 +1,14 @@
 const mongoose = require("mongoose");
 
 const budgetSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-    },
-    description: {
-        type: String,
-    },
     category: {
         type: String,
         default: 'other'
     },
     amount: {
+        type: Number,
+    },
+    month: {
         type: Number,
     },
     createdOn: {

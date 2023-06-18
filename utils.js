@@ -27,8 +27,6 @@ async function getUser(req) {
         }
     ])
 
-    console.log('data --', data)
-
     if (data.length === 0) {
         return null
     }
@@ -88,6 +86,15 @@ function ModifiedData(data, sumField) {
 
 }
 
+function paginate(data, start, limit) {
+    var dataField = data.data
+    console.log('jj', start)
+    data.data = dataField.slice(start, start + limit)
+    console.log('fff', data)
+    return data
+}
 
 
-module.exports = { getUser, test, ModifiedData }
+
+module.exports = { getUser, test, ModifiedData, paginate }
+

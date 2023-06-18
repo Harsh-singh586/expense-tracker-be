@@ -43,10 +43,6 @@ app.all('/expense/:id?', test, function (req, res) {
     commonFunction(req, res, Expense)
 })
 
-app.all('/category/:id?', test, function (req, res) {
-    commonFunction(req, res, Category)
-})
-
 app.all('/income/:id?', test, function (req, res) {
     commonFunction(req, res, Income)
 })

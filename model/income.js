@@ -22,6 +22,9 @@ const incomeSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    createdTime: {
+        type: Date
+    },
     createdBy: {
         type: String,
         required: true
@@ -32,3 +35,4 @@ const incomeSchema = new mongoose.Schema({
 const Income = new mongoose.model('Income', incomeSchema)
 
 module.exports = Income
+

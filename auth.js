@@ -27,7 +27,6 @@ function addAccessToken(userid) {
 
 async function getOrCreateUser(token, profile, res) {
     var user = await User.findOne({ userId: profile['sub'] })
-    console.log('---user', user)
     if (!user) {
         var url = `https://oauth2.googleapis.com/tokeninfo?id_token=${token}`
         try {
@@ -46,13 +45,11 @@ async function getOrCreateUser(token, profile, res) {
                 await user.save()
             }
             catch (error) {
-                console.log(error)
                 res.sendStatus(400)
                 return
             }
         }
         catch (err) {
-            console.log(err)
             res.sendStatus(401)
             return
         }
@@ -62,7 +59,6 @@ async function getOrCreateUser(token, profile, res) {
     }
 
     var data = await addAccessToken(profile['sub'])
-    console.log('-data', user)
     if (data) {
         var responseData = {
             token: data['accesstoken'],
@@ -101,7 +97,7 @@ async function verify(req, res) {
 
     }
     catch (err) {
-        console.log('eror', err)
+        console.log('eror1')
         res.sendStatus(401)
 
     }

@@ -33,6 +33,9 @@ async function commonFunction(req, res, Model) {
             if ('month' in filter) {
                 filter.month = parseInt(filter.month)
             }
+            if ('year' in filter) {
+                filter.year = parseInt(filter.year)
+            }
             if ('limit' in filter) {
                 limit = filter.limit
                 delete filter.limit

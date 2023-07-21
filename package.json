@@ -1,18 +1,26 @@
 {
-  "name": "expense_app_be",
+  "name": "express_proj",
   "version": "1.0.0",
-  "description": "BE for expense",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Harsh Singh",
+  "author": "Harsh",
   "license": "ISC",
   "dependencies": {
+    "@tanstack/react-query-devtools": "^4.29.7",
+    "cookie-session": "^2.0.0",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
-    "mongoose": "^7.1.1",
-    "node-fetch": "^3.3.1",
+    "express-session": "^1.17.3",
+    "google-auth-library": "^8.8.0",
+    "mongoose": "^7.0.4",
+    "mongoose-find-or-create": "^1.3.1",
+    "node-fetch": "^2.6.9",
     "nodemon": "^2.0.22",
-    "package.json": "^2.0.1"
+    "passport": "^0.5.3",
+    "passport-google-oauth2": "^0.2.0",
+    "passport-oauth2": "^1.7.0"
   }
 }

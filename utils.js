@@ -43,7 +43,8 @@ async function test(req, res, next) {
         return
     }
 
-    var user = await getUser(req)
+    var user = req.user
+    console.log('------------user', user)
     if (!user) {
         res.sendStatus(401)
 

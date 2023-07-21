@@ -8,6 +8,10 @@ const Category = require('./model/category')
 const Income = require('./model/income')
 const Budget = require('./model/budget')
 var cors = require('cors')
+const authRoute = require('./authroute')
+const passportSetup = require("./passport");
+const cookieSession = require("cookie-session");
+const passport = require("passport");
 
 //utils import
 const { test } = require('./utils')
@@ -15,32 +19,41 @@ const verify = require('./auth')
 
 const app = express();
 
-const allowCrossDomain = (req, res, next) => {
-    res.header(`Access-Control-Allow-Headers`, `Authorization`);
-    next();
-};
 
-app.use(cors())
-app.use(allowCrossDomain)
+
+app.use(
+    cookieSession({ name: "session", keys: ["lama"], maxAge: 24 * 60 * 60 * 100 })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(cors({
+    origin: "http://localhost:3000",
+    methods: "GET,POST,PUT,DELETE",
+    credentials: true,
+}))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-
-const PORT = 3001;
+const PORT = 5000;
 
 const { commonFunction } = require('./commonmodules');
 
 //------------------------------------ LOGIN ----------------------------------
 
 
-app.post('/login', function (req, res) {
-    verify(req, res)
-})
+app.use("/auth", authRoute);
+
 
 
 //-----------------------------------  Routes -----------------------------------------
 app.all('/expense/:id?', test, function (req, res) {
     commonFunction(req, res, Expense)
+})
+
+app.all('/category/:id?', test, function (req, res) {
+    commonFunction(req, res, Category)
 })
 
 app.all('/income/:id?', test, function (req, res) {
@@ -52,7 +65,7 @@ app.all('/budget/:id?', test, function (req, res) {
 })
 //---------------------------------  Mongo DB Connection-------------------------------
 
-mongoose.connect('mongodb://root:rootpassword@localhost:27017/testlearn')
+mongoose.connect(process.env.DB_URI)
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error: "));

@@ -20,56 +20,29 @@ function addAccessToken(userid) {
         var data = accesstoken.save()
         return data
     }
-    catch {
+    catch (err) {
+        console.log("err saving accesstoken")
         return null
     }
 }
 
-async function getOrCreateUser(token, profile, res) {
+async function getOrCreateUser(token, profile) {
     var user = await User.findOne({ userId: profile['sub'] })
     if (!user) {
-        var url = `https://oauth2.googleapis.com/tokeninfo?id_token=${token}`
-        try {
-            var userres = await fetch(url)
-            var userDetail = await userres.json()
-            console.log(userDetail)
-            var userdata = {
-                userId: userDetail['sub'],
-                username: userDetail['email'].split('@')[0],
-                name: userDetail['name'],
-                email: userDetail['email'],
-                profile_picture: userDetail['picture']
-            }
-            var user = new User(userdata)
-            try {
-                await user.save()
-            }
-            catch (error) {
-                res.sendStatus(400)
-                return
-            }
-        }
-        catch (err) {
-            res.sendStatus(401)
-            return
-        }
 
-
+        var userDetail = profile
+        var userdata = {
+            userId: userDetail['sub'],
+            username: userDetail['email'].split('@')[0],
+            name: userDetail['name'],
+            email: userDetail['email'],
+            profile_picture: userDetail['picture']
+        }
+        var user = new User(userdata)
+        await user.save()
 
     }
-
-    var data = await addAccessToken(profile['sub'])
-    if (data) {
-        var responseData = {
-            token: data['accesstoken'],
-            username: user['username'],
-            name: user['name'],
-            email: user['email'],
-            profile_picture: user['profile_picture']
-        }
-        res.send(responseData)
-    }
-
+    return user
 
 }
 
@@ -89,19 +62,15 @@ async function verify(req, res) {
         });
         const payload = ticket.getPayload();
         const userid = payload['sub'];
-
-        console.log('userid', userid)
-
         getOrCreateUser(token, payload, res)
 
 
     }
     catch (err) {
-        console.log('eror1')
         res.sendStatus(401)
 
     }
 
 }
 
-module.exports = verify
+module.exports = getOrCreateUser
